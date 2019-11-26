@@ -1,17 +1,21 @@
 /*
 ** EPITECH PROJECT, 2019
-** play_menu.h
+** game.h
 ** File description:
 ** header file
 */
 
-#ifndef PLAY_MENU_H
-#define PLAY_MENU_H
+#ifndef GAME_H
+#define GAME_H
 
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 #include <SFML/System.h>
 
-void play_menu_loop(sfVideoMode mode, sfRenderWindow *window);
+typedef struct {
+    sfRenderWindow *window;
+    sfVideoMode mode;
+    sfView *current_view;
+};
 
 #endif

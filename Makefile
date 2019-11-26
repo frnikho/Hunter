@@ -3,12 +3,13 @@ PATHSRC		=		src
 NAME		=		my_hunter
 
 INCLUDE		=		-I include
-SRC			=		$(PATHSRC)/input_manager.c		\
-					$(PATHSRC)/object/duck.c		\
+SRC			=		$(PATHSRC)/object/duck.c		\
 					$(PATHSRC)/text/menu_text.c		\
 					$(PATHSRC)/text/title_text.c	\
 					$(PATHSRC)/menu/play_menu.c		\
-					$(PATHSRC)/effects/moving_background.c
+					$(PATHSRC)/menu/pause_menu.c	\
+					$(PATHSRC)/effects/moving_background.c	\
+					$(PATHSRC)/levels/level_1.c
 
 MAIN		=		$(PATHSRC)/main.c
 

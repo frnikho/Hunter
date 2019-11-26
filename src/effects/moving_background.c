@@ -1,4 +1,9 @@
-
+/*
+** EPITECH PROJECT, 2019
+** moving_background.c
+** File description:
+** moving background effect
+*/
 #include "my.h"
 #include "effects/moving_background.h"
 
@@ -34,11 +39,8 @@ void move_mv_bg(mv_bg_s *bg, sfVector2f plus_position)
 
 void draw_mv_bg(sfRenderWindow *window, mv_bg_s *bg)
 {
-    //sfVector2f scale = {0.80, 0.80};
     sfSprite_setPosition(bg->spr1, bg->pos1);
     sfSprite_setPosition(bg->spr2, bg->pos2);
-    //sfSprite_setScale(bg->spr1, scale);
-    //sfSprite_setScale(bg->spr2, scale);
     sfRenderWindow_drawSprite(window, bg->spr1, NULL);
     sfRenderWindow_drawSprite(window, bg->spr2, NULL);
 }

@@ -1,6 +1,13 @@
+/*
+** EPITECH PROJECT, 2019
+** duck.c
+** File description:
+** duck object
+*/
+
 #include "object/duck.h"
 
-void createDuck(duck_s *duck, sfVector2f pos, int color, int speed)
+void create_duck(duck_s *duck, sfVector2f pos, int color, int speed)
 {
     sfIntRect rect;
     rect.top = 0;
@@ -19,7 +26,7 @@ void createDuck(duck_s *duck, sfVector2f pos, int color, int speed)
     duck->rect = rect;
 }
 
-void changeDuckMoves(duck_s *duck)
+void change_duck_moves(duck_s *duck)
 {
     if (duck->rect.top >= 48 * 3) {
         duck->rect.top = 0;
@@ -28,7 +35,7 @@ void changeDuckMoves(duck_s *duck)
     }
 }
 
-void changeDuckSprites(duck_s *duck)
+void change_duck_sprites(duck_s *duck)
 {
     if (duck->rect.left >= 48 * 2) {
         duck->rect.left = 0;
@@ -37,7 +44,7 @@ void changeDuckSprites(duck_s *duck)
     }
 }
 
-void drawDuck(duck_s *duck, sfRenderWindow *window)
+void draw_duck(sfRenderWindow *window, duck_s *duck)
 {
     sfSprite_setTextureRect(duck->sprite, duck->rect);
     sfVector2f scale = {2, 2};
@@ -47,9 +54,15 @@ void drawDuck(duck_s *duck, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, duck->sprite, NULL);
 }
 
-void destroyDuck(duck_s *duck)
+void destroy_duck(duck_s *duck)
 {
     sfSprite_destroy(duck->sprite);
     sfTexture_destroy(duck->texture);
     free(duck);
+}
+
+void move_duck(duck_s *duck, sfVector2f duck_p)
+{
+    duck->x = duck->x + duck_p.x;
+    duck->y = duck->y + duck_p.y;
 }

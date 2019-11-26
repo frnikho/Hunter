@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2019
+** duck.h
+** File description:
+** header file
+*/
+
 #ifndef DUCK_H
 #define DUCK_H
 
@@ -16,10 +23,11 @@ typedef struct {
     int color;
 } duck_s;
 
-void createDuck(duck_s *duck, sfVector2f pos, int color, int speed);
-void changeDuckSprites(duck_s *duck);
-void drawDuck(duck_s *duck, sfRenderWindow *window);
-void destroyDuck(duck_s *duck);
-void changeDuckMoves(duck_s *duck);
+void create_duck(duck_s *duck, sfVector2f pos, int color, int speed);
+void change_duck_sprites(duck_s *duck);
+void draw_duck(sfRenderWindow *window, duck_s *duck);
+void destroy_duck(duck_s *duck);
+void change_duck_moves(duck_s *duck);
+void move_duck(duck_s *duck, sfVector2f duck_p);
 
 #endif //DUCK_H
