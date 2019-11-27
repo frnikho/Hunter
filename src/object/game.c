@@ -4,3 +4,5 @@
 ** File description:
 ** game function
 */
+
+#include "object/game.h"

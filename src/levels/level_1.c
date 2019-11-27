@@ -7,23 +7,27 @@
 
 #include "my.h"
 #include "object/duck.h"
-#include "effects/moving_background.h"
+#include "object/game.h"
+#include "object/player.h"
+
 #include "levels/level_1.h"
 #include "text/title_text.h"
 #include "menu/pause_menu.h"
 #include <stdlib.h>
 #include <time.h>
 
-static int is_ready;
-static int is_pause;
+static int is_ready = 0;
+static int is_pause = 0;
 static title_text *title;
-static mv_bg_s *bg;
 static duck_s **ducks;
-int frame;
+static int frame;
 static sfVector2f duck_p = {-8.5, 0};
-
+static sfEvent event;
+static player *ninja;
+/*
 static void generate(sfRenderWindow *window)
 {
+
     ducks = malloc(sizeof(duck_s) * 25);
     sfVector2u size = sfRenderWindow_getSize(window);
     int distance = 0;
@@ -41,29 +45,30 @@ static void generate(sfRenderWindow *window)
         create_duck(ducks[i], pos, 0, speed);
     }
 }
-
+*/
 static void init(sfRenderWindow *window)
 {
     frame = 0;
-    is_pause = 0;
-    is_ready = 0;
-    generate(window);
-    bg = malloc(sizeof(mv_bg_s));
     sfVector2u size = sfRenderWindow_getSize(window);
+
+    ninja = malloc(sizeof(player));
+    sfVector2f ninja_pos = {size.x / 20, size.y / 1.2};
+    create_player(ninja, ninja_pos);
+
     title = malloc(sizeof(title_text));
 
     sfVector2f pos = {size.x / 2 - 100, size.y / 2 - 120};
-    sfVector2f bg_pos = {-1600, -300};
     create_title_text(title, pos, 40, "Ready");
-    create_mv_bg(bg, "assets/plains_night.jpg", bg_pos, 0);
-
-    create_pause(window);
 }
 
-static void update(sfRenderWindow *window)
+static void update(game *game_struct)
 {
+
+    if (is_pause) {
+
+    }
     if (is_ready) {
-        if (is_pause){
+       /* if (is_pause){
             draw_pause(window);
         } else {
             sfVector2f plus = {6.5, 0};
@@ -77,29 +82,45 @@ static void update(sfRenderWindow *window)
                     move_duck(ducks[i], duck_p);
                 }
             }
-        }
+        } */
     } else {
-        draw_mv_bg(window, bg);
-        draw_title_text(window, title);
+        draw_title_text(game_struct->window, title);
     }
-    sfRenderWindow_display(window);
+    if (frame % 5 == 0)
+        animate_player(ninja);
+    draw_player(ninja, game_struct->window);
+    sfRenderWindow_display(game_struct->window);
     frame++;
 }
 
-void level_1_loop(sfRenderWindow *window)
+void destroy(void)
 {
-    sfEvent event;
-    init(window);
-    int running = 1;
-    while (running) {
-        while (sfRenderWindow_pollEvent(window, &event) && running) {
-            if (event.type == sfEvtClosed)
-                running = 0;
-            if (!is_ready && (event.type == sfEvtKeyPressed
-                || event.type == sfEvtMouseButtonPressed))
-                is_ready = 1;
-        }
-        update(window);
-    }
-    sfRenderWindow_close(window);
+    destroy_title_text(title);
+    free(ducks);
+    my_putstr("[destroy] free level 1 menu !\n");
 }
+
+void level_1_loop(game *game_struct)
+{
+    if (game_struct->current_state != LEVEL_1)
+        return;
+    if (!title)
+        init(game_struct->window);
+    while (sfRenderWindow_pollEvent(game_struct->window, &event)) {
+        if (event.type == sfEvtClosed) {
+            sfRenderWindow_close(game_struct->window); destroy();
+        } else if (!is_ready && (event.type == sfEvtKeyPressed
+        || event.type == sfEvtMouseButtonPressed))
+            is_ready = 1;
+        if (is_ready && !is_pause && event.type == sfEvtKeyPressed && event.key.code == sfKeyEscape)
+            is_pause = 1;
+        if (ninja->current_anim != JUMPING && event.type == sfEvtKeyPressed &&
+        event.key.code == sfKeyUp)
+            ninja->current_anim = JUMPING;
+    }
+    sfRenderWindow_clear(game_struct->window, sfBlack);
+    update(game_struct);
+}
+
+//sfRenderWindow_close(game_struct->window);
+//destroy();

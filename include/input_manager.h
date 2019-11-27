@@ -11,6 +11,6 @@
 #include <SFML/Audio.h>
 #include <SFML/Graphics.h>
 
-void input_manager(sfRenderWindow *window, sfEvent event);
+void input_manager(sfEvent event, game *game_struct);
 
 #endif

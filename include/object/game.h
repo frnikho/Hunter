@@ -15,7 +15,7 @@
 typedef struct {
     sfRenderWindow *window;
     sfVideoMode mode;
-    sfView *current_view;
-};
+    enum game_state {MAIN_MENU = 0, SCORE_MENU = 1, LEVEL_1 = 101, LEVEL_2 = 201 } current_state;
+} game;
 
 #endif
