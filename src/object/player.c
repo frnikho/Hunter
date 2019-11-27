@@ -44,6 +44,12 @@ void draw_player(player *pl, sfRenderWindow *window)
     sfRenderWindow_drawSprite(window, pl->sprite, NULL);
 }
 
+void set_player_position(player *pl, float x, float y)
+{
+    sfVector2f pos = {x, y};
+    pl->position = pos;
+}
+
 void animate_player(player *pl)
 {
     if (pl->current_anim == RUNNING)

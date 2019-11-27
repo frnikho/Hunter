@@ -22,6 +22,6 @@ typedef struct {
 void create_menu_text(menu_text *txt, char *title, int size, sfVector2f pos);
 void draw_menu_text(sfRenderWindow *window, menu_text *txt);
 void destroy_menu_text(menu_text *txt);
-int is_clicked(sfRenderWindow *window, menu_text *txt, sfEvent event);
+int is_clicked_menu(sfRenderWindow *window, menu_text *txt, sfEvent event);
 
 #endif

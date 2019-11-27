@@ -33,7 +33,7 @@ void destroy_menu_text(menu_text *txt)
     free(txt);
 }
 
-int is_clicked(sfRenderWindow *window, menu_text *txt, sfEvent event)
+int is_clicked_menu(sfRenderWindow *window, menu_text *txt, sfEvent event)
 {
     sfVector2f pos = txt->position;
     sfFloatRect rect = sfText_getLocalBounds(txt->text);

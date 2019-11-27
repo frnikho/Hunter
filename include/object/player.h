@@ -25,5 +25,6 @@ void create_player(player *pl, sfVector2f pos);
 void destroy_player(player *pl);
 void draw_player(player *pl, sfRenderWindow *window);
 void animate_player(player *pl);
+void set_player_position(player *pl, float x, float y);
 
 #endif

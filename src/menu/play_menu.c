@@ -69,11 +69,11 @@ void play_menu_loop(game *game_struct)
             sfRenderWindow_close(game_struct->window);
             destroy();
             return;
-        } else if (is_clicked(game_struct->window, play, event)) {
+        } else if (is_clicked_menu(game_struct->window, play, event)) {
             game_struct->current_state = LEVEL_1;
             destroy();
             return;
-        } else if (is_clicked(game_struct->window, score, event)) {
+        } else if (is_clicked_menu(game_struct->window, score, event)) {
             game_struct->current_state = SCORE_MENU;
             destroy();
             return;
