@@ -10,21 +10,18 @@ int my_find_prime_sup(int nb)
 {
     int positive = 1;
     int negative = 0;
-
+    if (my_is_prime(nb))
+        return (nb);
     while (1) {
-        if (my_is_prime(nb)) {
-            return (nb);
+        if (my_is_prime(nb + positive)) {
+            return (nb + positive);
         } else {
-            if (my_is_prime(nb + positive)) {
-                return (nb + positive);
-            } else {
-                positive++;
-            }
-            if (my_is_prime(nb + negative)) {
-                return (nb + negative);
-            } else {
-                negative--;
-            }
+            positive++;
+        }
+        if (my_is_prime(nb + negative)) {
+            return (nb + negative);
+        } else {
+            negative--;
         }
     }
 }

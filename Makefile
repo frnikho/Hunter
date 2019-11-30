@@ -20,7 +20,7 @@ MAIN		=		$(PATHSRC)/main.c
 CFLAGS		=		$(INCLUDE)
 
 LIB			=		-L lib/ -lmy
-CLIB		=		-lcsfml-graphics -lcsfml-window -lcsfml-system
+CLIB		=		-lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio
 
 OBJ			=		$(SRC:%.c=%.o)
 OBJMAIN		=		$(MAIN:%.c=%.o)

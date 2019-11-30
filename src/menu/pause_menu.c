@@ -32,7 +32,7 @@ void draw_pause(sfRenderWindow *window)
     draw_title_text(window, title);
 }
 
-void destroy_pause()
+void destroy_pause(void)
 {
 
 }

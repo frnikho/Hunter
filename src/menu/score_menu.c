@@ -42,9 +42,8 @@ static void update(game *game_struct)
 
 }
 
-static void destroy()
+static void destroy(void)
 {
-    //destroy_title_text(title);
     free(score);
     my_putstr("[destroy] free score menu !\n");
 }

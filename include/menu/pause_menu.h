@@ -9,7 +9,6 @@
 
 void create_pause(sfRenderWindow *window);
 void draw_pause(sfRenderWindow *window);
-void destroy(void);
 
 
 #endif

@@ -17,32 +17,37 @@
 #include <SFML/Graphics.h>
 #include <SFML/System.h>
 
-static game *game_struct;
+static game *game_s;
+
+int check_argv(char **argv)
+{
+    if (argv[1] && argv[1][0] == '-' && argv[1][1] == 'h')
+        my_putstr("Help:");
+    else
+        my_putstr("invalid arguments !");
+    return (0);
+}
 
 int init(float width, float height)
 {
-    game_struct = malloc(sizeof(game));
+    game_s = malloc(sizeof(game));
     sfVideoMode mode = {width, height, 32};
-    game_struct->mode = mode;
-    game_struct->window = sfRenderWindow_create(game_struct->mode, "Duck Hunt", sfClose, 0);
-    sfRenderWindow_setFramerateLimit(game_struct->window, 60);
-    game_struct->current_state = MAIN_MENU;
+    char *title = "Duck Hunt";
+    game_s->mode = mode;
+    game_s->window = sfRenderWindow_create(game_s->mode, title, sfClose, 0);
+    sfRenderWindow_setFramerateLimit(game_s->window, 60);
+    game_s->current_state = MAIN_MENU;
 }
 
 int main(int argc, char **argv)
 {
-    int width = 1080;
-    int height = 720;
-    if (argc == 3) {
-        height = my_getnbr(argv[2]);
-        width = my_getnbr(argv[1]);
+    if (argc > 1)
+        return (check_argv(argv));
+    init(1080, 720);
+    while (sfRenderWindow_isOpen(game_s->window)) {
+        play_menu_loop(game_s);
+        level_1_loop(game_s);
+        score_menu_loop(game_s);
     }
-    height = height < 600 ? 1080 : height;
-    width = width < 800 ? 720 : width;
-    init(width, height);
-    while (sfRenderWindow_isOpen(game_struct->window)) {
-        play_menu_loop(game_struct);
-        level_1_loop(game_struct);
-        score_menu_loop(game_struct);
-    }
+    return (0);
 }

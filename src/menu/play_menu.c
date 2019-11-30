@@ -9,6 +9,7 @@
 #include "text/menu_text.h"
 #include "text/title_text.h"
 #include "object/game.h"
+#include "object/background.h"
 #include "levels/level_1.h"
 #include <stdlib.h>
 
@@ -16,6 +17,9 @@ static menu_text *play;
 static menu_text *score;
 static menu_text *settings;
 static title_text *title;
+
+static background *bg;
+
 static int running = 1;
 static sfEvent event;
 static unsigned long frame = 0;
@@ -26,6 +30,7 @@ static void init(sfRenderWindow *window)
     score = malloc(sizeof(menu_text));
     settings = malloc(sizeof(menu_text));
     title = malloc(sizeof(title_text));
+    bg = malloc(sizeof(background));
     sfVector2u size = sfRenderWindow_getSize(window);
 
     sfVector2f play_position = {size.x / 2 - 70, size.y / 2 + 80};
@@ -33,6 +38,7 @@ static void init(sfRenderWindow *window)
     sfVector2f settings_position = {10, size.y - 20};
     sfVector2f title_position = {size.x / 3.5, size.y / 3.5};
 
+    create_background(bg, "assets/background.jpg", 1.5);
     create_menu_text(play, "Play", 30, play_position);
     create_menu_text(score, "Score", 25, score_position);
     create_menu_text(settings, "Settings", 14, settings_position);
@@ -50,7 +56,8 @@ static void destroy(void)
 
 static void update(sfRenderWindow *window)
 {
-    sfVector2f move = {1, 0};
+    animate_background(bg);
+    draw_background(bg, window);
     draw_menu_text(window, play);
     draw_menu_text(window, score);
     draw_title_text(window, title);

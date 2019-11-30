@@ -53,7 +53,10 @@ void set_player_position(player *pl, float x, float y)
 void animate_player(player *pl)
 {
     if (pl->current_anim == RUNNING)
-        if (pl->rect.left + 60 > (7*60)+10) pl->rect.left = 10; else pl->rect.left += 82;
+        if (pl->rect.left + 60 > (7*60)+10)
+            pl->rect.left = 10;
+        else
+            pl->rect.left += 82;
     if (pl->current_anim == JUMPING) {
         if (pl->rect.left >= 60)
             pl->rect.left = 0;

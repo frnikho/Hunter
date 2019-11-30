@@ -48,13 +48,6 @@ void draw_duck(sfRenderWindow *window, duck_s *duck)
     sfRenderWindow_drawSprite(window, duck->sprite, NULL);
 }
 
-void destroy_duck(duck_s *duck)
-{
-    sfSprite_destroy(duck->sprite);
-    sfTexture_destroy(duck->texture);
-    free(duck);
-}
-
 void move_duck(duck_s *duck, sfVector2f duck_p)
 {
     duck->x = duck->x + duck_p.x;
@@ -68,14 +61,14 @@ int is_clicked_duck(sfRenderWindow *window, duck_s *duck, sfEvent event)
 
     int mx = rect.width + pos.x;
     int my = rect.height + pos.y;
-    if (event.type == sfEvtMouseButtonPressed &&
-        event.mouseButton.button == sfMouseLeft) {
-        if (event.mouseButton.x <= mx && event.mouseButton.x >= pos.x
-            && event.mouseButton.y <= my && event.mouseButton.y >= pos.y)
-            return (1);
-        else
-            return (0);
-    } else {
+    if (event.type != sfEvtMouseButtonPressed)
         return (0);
-    }
+    else if (event.mouseButton.button != sfMouseLeft)
+        return (0);
+    int x = event.mouseButton.x;
+    int y = event.mouseButton.y;
+    if (x <= mx && x >= pos.x && y <= my && y >= pos.y)
+        return (1);
+    else
+        return (0);
 }
