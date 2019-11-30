@@ -13,17 +13,23 @@
 
 #include "levels/level_1.h"
 #include "text/title_text.h"
+#include "text/menu_text.h"
 #include "menu/pause_menu.h"
+#include "utils/string_utils.h"
 #include <stdlib.h>
 #include <time.h>
 
 static int is_ready = 0;
 static int is_pause = 0;
+static int score = 0;
 static background *bg;
 static title_text *title;
+
+static menu_text *score_text;
+static menu_text *time_text;
+
 static duck_s **ducks;
-static int frame;
-static sfEvent event;
+static sfEvent ev;
 static player *ninja;
 static sfVector2f duck_p = {-3.5 , 0};
 
@@ -45,30 +51,38 @@ static void generate(sfRenderWindow *window)
     }
 }
 
-static void init(sfRenderWindow *window)
+static void init(game *game_struct)
 {
-    frame = 0;
-    sfVector2u size = sfRenderWindow_getSize(window);
-    generate(window);
-    bg = malloc(sizeof(background));
-    create_background(bg, "assets/plains_night.jpg", 3);
-    ninja = malloc(sizeof(player));
-    sfVector2f ninja_pos = {size.x / 20, size.y / 1.3};
-    create_player(ninja, ninja_pos);
     title = malloc(sizeof(title_text));
-    sfVector2f pos = {size.x / 2 - 100, size.y / 2 - 120};
-    create_title_text(title, pos, 40, "Ready");
+    bg = malloc(sizeof(background));
+    ninja = malloc(sizeof(player));
+    score_text = malloc(sizeof(menu_text));
+    time_text = malloc(sizeof(menu_text));
+
+    sfVector2u size = sfRenderWindow_getSize(game_struct->window);
+    sfVector2f ninja_pos = {size.x / 20, size.y / 1.3};
+    sfVector2f title_pos = {size.x / 2 - 100, size.y / 2 - 120};
+    sfVector2f score_pos = {size.x / 100.2, size.y / 1.05};
+    sfVector2f time_pos = {size.x / 1.08, size.y / 1.05};
+
+    sfClock_restart(game_struct->clock);
+    generate(game_struct->window);
+
+    create_background(bg, "assets/plains_night.jpg", 3);
+    create_player(ninja, ninja_pos);
+    create_title_text(title, title_pos, 40, "Ready");
+    create_menu_text(score_text, "0", 20, score_pos);
+    create_menu_text(time_text, "0 00", 20, time_pos);
 }
 
 static void update(game *game_struct)
 {
     draw_background(bg, game_struct->window);
+    draw_menu_text(game_struct->window, time_text);
+    draw_menu_text(game_struct->window, score_text);
     if (is_ready) {
-        if (!ducks[0]->alive || ducks[0]->x <= -100) {
-
-        }
         for (int i = 0; i < 50; i++) {
-            frame % 4 == 0 ? change_duck_sprites(ducks[i]) : frame;
+            game_struct->time % 4 == 0 ? change_duck_sprites(ducks[i]) : i;
             move_duck(ducks[i], duck_p);
         }
         animate_background(bg);
@@ -77,16 +91,19 @@ static void update(game *game_struct)
     }
     for (int i = 0; i < 50; i++)
         draw_duck(game_struct->window, ducks[i]);
-    if (frame % 5 == 0)
+    if (game_struct->time % 4 == 0)
         animate_player(ninja);
     draw_player(ninja, game_struct->window);
     sfRenderWindow_display(game_struct->window);
-    frame++;
 }
 
 static void destroy(void)
 {
-    destroy_title_text(title);
+    free(title);
+    free(bg);
+    free(ninja);
+    free(score_text);
+    free(time_text);
     my_putstr("[destroy] free level 1 menu !\n");
 }
 
@@ -95,19 +112,19 @@ void level_1_loop(game *game_struct)
     if (game_struct->current_state != LEVEL_1)
         return;
     if (!title)
-        init(game_struct->window);
-    while (sfRenderWindow_pollEvent(game_struct->window, &event)) {
-        if (event.type == sfEvtClosed) {
+        init(game_struct);
+    while (sfRenderWindow_pollEvent(game_struct->window, &ev)) {
+        if (ev.type == sfEvtClosed) {
             sfRenderWindow_close(game_struct->window);
             destroy();
-        } else if (!is_ready && event.type == sfEvtKeyPressed)
+            return;
+        } else if (!is_ready && ev.type == sfEvtKeyPressed) {
+            sfClock_restart(game_struct->clock);
             is_ready = 1;
-        else if (!is_ready && event.type == sfEvtMouseButtonPressed)
+        } else if (!is_ready && ev.type == sfEvtMouseButtonPressed)
             is_ready = 1;
-        for (int i = 0; i < 50; i++) {
-            if (is_clicked_duck(game_struct->window, ducks[i], event))
-                ducks[i]->alive = 0;
-        }
+        for (int i = 0; i < 50; i++)
+            is_c_d(game_struct->window, ducks[i], ev)?ducks[i]->alive = 0:0;
     }
     sfRenderWindow_clear(game_struct->window, sfBlack);
     update(game_struct);

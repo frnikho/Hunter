@@ -17,6 +17,8 @@ enum game_state {MAIN_MENU = 0, SCORE_MENU = 1, LEVEL_1 = 101, LEVEL_2 = 201 };
 typedef struct {
     sfRenderWindow *window;
     sfVideoMode mode;
+    sfClock *clock;
+    long int time;
     enum game_state current_state;
 } game;
 

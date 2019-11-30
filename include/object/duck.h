@@ -30,6 +30,6 @@ void draw_duck(sfRenderWindow *window, duck_s *duck);
 void destroy_duck(duck_s *duck);
 void change_duck_moves(duck_s *duck);
 void move_duck(duck_s *duck, sfVector2f duck_p);
-int is_clicked_duck(sfRenderWindow *window, duck_s *duck, sfEvent event);
+int is_c_d(sfRenderWindow *window, duck_s *duck, sfEvent event);
 
 #endif //DUCK_H

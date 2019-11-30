@@ -22,16 +22,16 @@ static background *bg;
 
 static int running = 1;
 static sfEvent event;
-static unsigned long frame = 0;
 
-static void init(sfRenderWindow *window)
+static void init(game *game_struct)
 {
     play = malloc(sizeof(menu_text));
     score = malloc(sizeof(menu_text));
     settings = malloc(sizeof(menu_text));
     title = malloc(sizeof(title_text));
     bg = malloc(sizeof(background));
-    sfVector2u size = sfRenderWindow_getSize(window);
+    sfClock_restart(game_struct->clock);
+    sfVector2u size = sfRenderWindow_getSize(game_struct->window);
 
     sfVector2f play_position = {size.x / 2 - 70, size.y / 2 + 80};
     sfVector2f score_position = {size.x / 2 - 70, size.y / 2 + 120};
@@ -54,15 +54,14 @@ static void destroy(void)
     my_putstr("[destroy] free play menu !\n");
 }
 
-static void update(sfRenderWindow *window)
+static void update(game *game_struct)
 {
     animate_background(bg);
-    draw_background(bg, window);
-    draw_menu_text(window, play);
-    draw_menu_text(window, score);
-    draw_title_text(window, title);
-    sfRenderWindow_display(window);
-    frame++;
+    draw_background(bg, game_struct->window);
+    draw_menu_text(game_struct->window, play);
+    draw_title_text(game_struct->window, title);
+    sfRenderWindow_display(game_struct->window);
+    sfTime time = sfClock_getElapsedTime(game_struct->clock);
 }
 
 void play_menu_loop(game *game_struct)
@@ -70,7 +69,7 @@ void play_menu_loop(game *game_struct)
     if (game_struct->current_state != MAIN_MENU)
         return;
     if (!title)
-        init(game_struct->window);
+        init(game_struct);
     while (sfRenderWindow_pollEvent(game_struct->window, &event)) {
         if (event.type == sfEvtClosed) {
             sfRenderWindow_close(game_struct->window);
@@ -86,5 +85,5 @@ void play_menu_loop(game *game_struct)
             return;
         }
     }
-    update(game_struct->window);
+    update(game_struct);
 }

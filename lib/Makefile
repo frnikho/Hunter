@@ -37,6 +37,7 @@ SRC 		= 	my_compute_factorial_it.c		\
 				my_strncpy.c 					\
 				my_strstr.c 						\
 				my_strupcase.c					\
+				get_int_length.c
 
 TESTS		=	$(TESTPATH)/test_my_printf.c
 

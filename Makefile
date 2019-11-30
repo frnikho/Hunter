@@ -13,7 +13,8 @@ SRC			=		$(PATHSRC)/input_manager.c				\
 					$(PATHSRC)/menu/play_menu.c				\
 					$(PATHSRC)/menu/pause_menu.c			\
 					$(PATHSRC)/menu/score_menu.c			\
-					$(PATHSRC)/levels/level_1.c
+					$(PATHSRC)/levels/level_1.c				\
+					$(PATHSRC)/utils/string_utils.c
 
 MAIN		=		$(PATHSRC)/main.c
 

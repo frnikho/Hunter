@@ -54,7 +54,7 @@ void move_duck(duck_s *duck, sfVector2f duck_p)
     duck->y = duck->y + duck_p.y;
 }
 
-int is_clicked_duck(sfRenderWindow *window, duck_s *duck, sfEvent event)
+int is_c_d(sfRenderWindow *window, duck_s *duck, sfEvent event)
 {
     sfVector2f pos = {duck->x, duck->y};
     sfIntRect rect = sfSprite_getTextureRect(duck->sprite);
