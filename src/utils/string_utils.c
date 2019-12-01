@@ -21,6 +21,5 @@ char *transform_str(int nbr)
         index++;
     }
     my_putstr(result);
-
     return (result);
 }

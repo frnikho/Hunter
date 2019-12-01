@@ -17,14 +17,13 @@ static menu_text *play;
 static menu_text *score;
 static menu_text *settings;
 static title_text *title;
-
 static background *bg;
-
-static int running = 1;
+static int running;
 static sfEvent event;
 
 static void init(game *game_struct)
 {
+    running = 1;
     play = malloc(sizeof(menu_text));
     score = malloc(sizeof(menu_text));
     settings = malloc(sizeof(menu_text));

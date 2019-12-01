@@ -19,7 +19,6 @@
 #include <SFML/System.h>
 
 static game *game_s;
-static const int ratio = 16666.6;
 
 int check_argv(char **argv)
 {
@@ -49,6 +48,7 @@ int main(int argc, char **argv)
     if (argc > 1)
         return (check_argv(argv));
     init(1080, 720);
+    const int ratio = 16666.6;
     while (sfRenderWindow_isOpen(game_s->window)) {
         game_s->time = sfClock_getElapsedTime(game_s->clock).microseconds/ratio;
         play_menu_loop(game_s);

@@ -32,4 +32,4 @@ void change_duck_moves(duck_s *duck);
 void move_duck(duck_s *duck, sfVector2f duck_p);
 int is_c_d(sfRenderWindow *window, duck_s *duck, sfEvent event);
 
-#endif //DUCK_H
+#endif

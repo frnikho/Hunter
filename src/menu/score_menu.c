@@ -30,16 +30,13 @@ static void init(game *game_struct)
     title = malloc(sizeof(title_text));
     score = malloc(sizeof(menu_text) * 10);
     back = malloc(sizeof(menu_text));
-
     sfVector2f title_pos = {200, 400};
     sfVector2f back_pos = {50, 100};
-
     create_title_text(title, title_pos, 32, "Score:");
 }
 
 static void update(game *game_struct)
 {
-
 }
 
 static void destroy(void)

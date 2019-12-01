@@ -6,4 +6,3 @@
 */
 
 #include "object/gui.h"
-

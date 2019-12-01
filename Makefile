@@ -27,6 +27,7 @@ OBJ			=		$(SRC:%.c=%.o)
 OBJMAIN		=		$(MAIN:%.c=%.o)
 
 $(NAME):		$(OBJ) $(OBJMAIN)
+				make -C lib/
 				gcc -o $(NAME) $(OBJ) $(OBJMAIN) $(INCLUDE) $(LIB) $(CLIB)
 
 all:			$(NAME)

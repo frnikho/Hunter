@@ -15,7 +15,6 @@ void create_duck(duck_s *duck, sfVector2f pos, int color, int speed)
     rect.left = 0;
     rect.width = 48;
     rect.height = 48;
-
     duck->x = pos.x;
     duck->y = pos.y;
     duck->color = color;
@@ -58,7 +57,6 @@ int is_c_d(sfRenderWindow *window, duck_s *duck, sfEvent event)
 {
     sfVector2f pos = {duck->x, duck->y};
     sfIntRect rect = sfSprite_getTextureRect(duck->sprite);
-
     int mx = rect.width + pos.x;
     int my = rect.height + pos.y;
     if (event.type != sfEvtMouseButtonPressed)

@@ -15,9 +15,7 @@ typedef struct {
     sfVector2f position;
     sfFont *font;
     sfText *text;
-
     sfText *shadow_text;
-
     char *title;
     int size;
 } title_text;

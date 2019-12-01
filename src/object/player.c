@@ -21,7 +21,6 @@ void create_player(player *pl, sfVector2f pos)
     rect.left = 10;
     rect.width = 70;
     rect.height = 50;
-
     pl->texture = sfTexture_createFromFile("assets/ninja.png", NULL);
     pl->sprite = sfSprite_create();
     sfSprite_setTexture(pl->sprite, pl->texture, sfTrue);
@@ -57,13 +56,4 @@ void animate_player(player *pl)
             pl->rect.left = 10;
         else
             pl->rect.left += 82;
-    if (pl->current_anim == JUMPING) {
-        if (pl->rect.left >= 60)
-            pl->rect.left = 0;
-        else
-            pl->rect.left += 66;
-        pl->rect.top = 791;
-        pl->rect.height = 80;
-        pl->rect.width = 65;
-    }
 }

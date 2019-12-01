@@ -25,4 +25,5 @@ void draw_background(background *bg, sfRenderWindow *window);
 void destroy_background(background *bg);
 void move_background(background *bg);
 void animate_background(background *bg);
+
 #endif

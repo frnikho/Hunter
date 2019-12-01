@@ -19,7 +19,6 @@ void create_title_text(title_text *txt, sfVector2f pos, int size, char *title)
     txt->title = title;
     txt->font = sfFont_createFromFile("assets/8_bit_wonder.ttf");
     txt->text = sfText_create();
-
     txt->shadow_text = sfText_create();
 }
 
@@ -32,13 +31,11 @@ void draw_title_text(sfRenderWindow *window, title_text *txt)
     sfText_setCharacterSize(txt->shadow_text, txt->size + 3);
     sfText_setStyle(txt->shadow_text, sfTextBold | sfTextItalic);
     sfText_setColor(txt->shadow_text, sfBlack);
-
     sfText_setString(txt->text, txt->title);
     sfText_setFont(txt->text, txt->font);
     sfText_setPosition(txt->text, txt->position);
     sfText_setCharacterSize(txt->text, txt->size);
     sfText_setStyle(txt->text, sfTextBold | sfTextItalic);
-
     sfRenderWindow_drawText(window, txt->shadow_text, NULL);
     sfRenderWindow_drawText(window, txt->text, NULL);
 }

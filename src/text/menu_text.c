@@ -39,14 +39,14 @@ int is_clicked_menu(sfRenderWindow *window, menu_text *txt, sfEvent event)
     sfFloatRect rect = sfText_getLocalBounds(txt->text);
     int mx = rect.width + pos.x;
     int my = rect.height + pos.y;
-    if (event.type == sfEvtMouseButtonPressed &&
-    event.mouseButton.button == sfMouseLeft) {
-        if (event.mouseButton.x <= mx && event.mouseButton.x >= pos.x
-            && event.mouseButton.y <= my && event.mouseButton.y >= pos.y)
-            return (1);
-        else
-            return (0);
-    } else {
+    if (event.type != sfEvtMouseButtonPressed)
         return (0);
-    }
+    else if (event.mouseButton.button != sfMouseLeft)
+        return (0);
+    int x = event.mouseButton.x;
+    int y = event.mouseButton.y;
+    if (x <= mx && x >= pos.x && y <= my && y >= pos.y)
+        return (1);
+    else
+        return (0);
 }

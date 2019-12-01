@@ -10,5 +10,4 @@
 void create_pause(sfRenderWindow *window);
 void draw_pause(sfRenderWindow *window);
 
-
 #endif

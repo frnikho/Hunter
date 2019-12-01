@@ -13,4 +13,4 @@ typedef struct gui {
     int shoot;
 };
 
-#endif //GUI_H
+#endif

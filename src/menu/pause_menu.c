@@ -34,5 +34,4 @@ void draw_pause(sfRenderWindow *window)
 
 void destroy_pause(void)
 {
-
 }
